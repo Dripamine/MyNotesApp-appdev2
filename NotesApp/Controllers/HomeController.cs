@@ -8,23 +8,59 @@ namespace NotesApp.Controllers
 {
     public class HomeController : Controller
     {
+        appdev2Context _context = new appdev2Context();
         public ActionResult Index()
         {
+            var listofData = _context.Notes.ToList();
+            return View(listofData);
+        }
+        [HttpGet]
+        public ActionResult Create()
+        {
             return View();
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Create(Note model)
         {
-            ViewBag.Message = "Your application description page.";
-
+            _context.Notes.Add(model);
+            _context.SaveChanges();
+            ViewBag.Message = "Data Insert Successfully";
             return View();
         }
-
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            ViewBag.Message = "Your contact page.";
+            var data = _context.Notes.Where(x => x.NoteId == id).FirstOrDefault();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult Edit(Note Model)
+        {
+            var data = _context.Notes.Where(x => x.NoteId == Model.NoteId).FirstOrDefault();
+            if (data != null)
+            {
+                data.Title = Model.Title;
+                data.Content = Model.Content;
+                data.Date = Model.Date;
+                data.UserId = Model.UserId;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("index");
+        }
 
-            return View();
+        public ActionResult Detail(int id)
+        {
+            var data = _context.Notes.Where(x => x.NoteId == id).FirstOrDefault();
+            return View(data);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            var data = _context.Notes.Where(x => x.NoteId == id).FirstOrDefault();
+            _context.Notes.Remove(data);
+            _context.SaveChanges();
+            ViewBag.Message = "Record Delete Successfully";
+            return RedirectToAction("index");
         }
     }
 }
