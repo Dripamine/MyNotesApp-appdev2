@@ -13,10 +13,10 @@ namespace NotesApp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class appdev2Context : DbContext
+    public partial class NotesDBContext : DbContext
     {
-        public appdev2Context()
-            : base("name=appdev2Context")
+        public NotesDBContext()
+            : base("name=NotesDBContext")
         {
         }
     

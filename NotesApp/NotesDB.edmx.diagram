@@ -4,10 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="50997da804ae42eea8f0b63761df17d3" Name="Diagram1">
-        <EntityTypeShape EntityType="appdev2Model.Note" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="appdev2Model.User" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="appdev2Model.FK_Notes_Users" ManuallyRouted="false" />
+      <Diagram DiagramId="f3f59f6b89e44afca7c12723d55ebba0" Name="Diagram1">
+        <EntityTypeShape EntityType="appdev2Model.Note" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="appdev2Model.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

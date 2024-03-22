@@ -13,7 +13,6 @@
           <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Content" Type="text" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="UserId" Type="int" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -23,25 +22,9 @@
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="char" MaxLength="60" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Notes_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Notes">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="appdev2ModelStoreContainer">
           <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Notes_Users" Association="Self.FK_Notes_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Notes" EntitySet="Notes" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -56,8 +39,6 @@
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UserId" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Notes_Users" FromRole="Notes" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -66,34 +47,17 @@
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="60" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Notes" Relationship="Self.FK_Notes_Users" FromRole="Users" ToRole="Notes" />
         </EntityType>
-        <Association Name="FK_Notes_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Notes" Type="Self.Note" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Notes">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="appdev2Context" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="NotesDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Notes" EntityType="Self.Note" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Notes_Users" Association="Self.FK_Notes_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Notes" EntitySet="Notes" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="appdev2ModelStoreContainer" CdmEntityContainer="appdev2Context">
+        <EntityContainerMapping StorageEntityContainer="appdev2ModelStoreContainer" CdmEntityContainer="NotesDBContext">
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="appdev2Model.Note">
               <MappingFragment StoreEntitySet="Notes">
@@ -101,7 +65,6 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

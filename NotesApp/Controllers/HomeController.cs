@@ -8,7 +8,7 @@ namespace NotesApp.Controllers
 {
     public class HomeController : Controller
     {
-        appdev2Context _context = new appdev2Context();
+        NotesDBContext _context = new NotesDBContext();
         public ActionResult Index()
         {
             var listofData = _context.Notes.ToList();
@@ -42,7 +42,6 @@ namespace NotesApp.Controllers
                 data.Title = Model.Title;
                 data.Content = Model.Content;
                 data.Date = Model.Date;
-                data.UserId = Model.UserId;
                 _context.SaveChanges();
             }
             return RedirectToAction("index");
