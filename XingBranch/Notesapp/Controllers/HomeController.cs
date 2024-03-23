@@ -22,7 +22,8 @@ namespace Notesapp.Controllers
         [HttpPost]
         public ActionResult Create(Note model) {
             model.Date = DateTime.Now;
-         _context.Notes.Add(model);
+            model.UserId = (int)Session["userId"];
+            _context.Notes.Add(model);
             _context.SaveChanges();
             ViewBag.Message = "Data insert seccessfully";
             return RedirectToAction("Index");

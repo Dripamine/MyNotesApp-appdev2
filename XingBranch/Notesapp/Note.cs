@@ -18,5 +18,8 @@ namespace Notesapp
         public string Title { get; set; }
         public string Content { get; set; }
         public System.DateTime Date { get; set; }
+        public Nullable<int> UserId { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

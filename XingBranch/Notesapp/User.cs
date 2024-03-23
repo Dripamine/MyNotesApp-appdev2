@@ -11,24 +11,20 @@ namespace Notesapp
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Notes = new HashSet<Note>();
+        }
+    
         public int UserId { get; set; }
-        [Required(ErrorMessage ="this field is required")]
-
-        [DisplayName("User Name")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "this field is required")]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
-        [DataType(DataType.Password)]
-        [DisplayName("Confirm Password")]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
-
-        public string errormessage { get; set;}
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Note> Notes { get; set; }
     }
 }
