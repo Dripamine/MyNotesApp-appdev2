@@ -16,23 +16,21 @@ namespace Notesapp.Controllers
         [HttpPost]
         public ActionResult Autherize(User userModel)
         {
-            using(appdev2Entities dbcontext = new appdev2Entities())
+            using (appdev2Entities dbcontext = new appdev2Entities())
             {
-                var userDetails=dbcontext.Users.Where(u=>u.Username == userModel.Username && u.Password==userModel.Password).FirstOrDefault();
-                if (userDetails==null)
+                var userDetails = dbcontext.Users.FirstOrDefault(u => u.Username == userModel.Username);
+                if (userDetails != null && BCrypt.Net.BCrypt.Verify(userModel.Password, userDetails.Password))
                 {
-                    userModel.errormessage = "wrong username or password";
-                    return View("Index", userModel);
+                    Session["userId"] = userDetails.UserId;
+                    Session["username"] = userDetails.Username;
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    Session["userId"]=userDetails.UserId;
-                    Session["username"]=userDetails.Username;
-                    return RedirectToAction("Index","Home");
-
+                    userModel.errormessage = "Wrong username or password";
+                    return View("Index", userModel);
                 }
             }
-            
         }
         public ActionResult Logout()
         {
