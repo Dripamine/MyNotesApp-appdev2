@@ -15,14 +15,15 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+            <div class=" collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
 
                 </ul>
                 @{
-                    if (Session["userId"] != null) { <div>
-    <p style="color:white">Username: @Session["username"].ToString()</p>
+                    if (Session["userId"] != null) { <div class="d-flex justify-content-between">
+    <p style="color:white" class="mr-3">Username: @Session["username"].ToString()</p>
+    
     <a href="@Url.Action("LogOut", "Login")">LogOut</a>
 </div>} }
 
