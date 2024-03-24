@@ -1,65 +1,120 @@
 ﻿@model Notesapp.User
 
 @{
-    ViewBag.Title = "User Registration";
+    Layout = null;
 }
 
-<h2>Register</h2>
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
 
-@using (Html.BeginForm("AddOrEdit","User",FormMethod.Post)) 
-{
-    @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>User</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        #registration-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
 
-    <br>
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        .control-label {
+            text-align: left;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            font-size: 15px;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .text-danger {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .label-message {
+            color: red;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="password"] {
+            -webkit-text-security: disc;
+            text-security: disc;
+        }
+    </style>
+</head>
+<body>
+    <div id="registration-container">
+        <h2>User Registration</h2>
+        @using (Html.BeginForm("AddOrEdit", "User", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "label-message" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "label-message" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "label-message" })
+            </div>
+
             <input type="submit" value="Submit" class="btn btn-primary" />
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-2">
-            <label class="label-success">@ViewBag.SuccessMessage</label>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-2">
-            <label class="label-danger">@ViewBag.DuplicateMessage</label>
-        </div>
-    </div>
-</div>
-}
 
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+            <div class="label-message">@ViewBag.SuccessMessage</div>
+            <div class="label-message">@ViewBag.DuplicateMessage</div>
+        }
+    </div>
+</body>
+</html>
