@@ -37,7 +37,7 @@ namespace Notesapp.Controllers
                 }
                 ModelState.Clear();
                 ViewBag.SuccessMessage = "Registration Successful";
-                return View("AddOrEdit", new User());
+                return RedirectToAction("Index", "Login");
             }
             return View("AddOrEdit", userModel);
         }
