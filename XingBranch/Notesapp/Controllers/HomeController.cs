@@ -11,7 +11,8 @@ namespace Notesapp.Controllers
         appdev2Entities _context = new appdev2Entities();
         public ActionResult Index()
         {
-            var listofData = _context.Notes.ToList();
+            int userId = (int)Session["userId"];
+            var listofData = _context.Notes.Where(note => note.UserId == userId).ToList();
             return View(listofData);
         }
         [HttpGet]
