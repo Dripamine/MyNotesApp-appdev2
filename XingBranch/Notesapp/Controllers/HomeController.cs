@@ -31,7 +31,7 @@ namespace Notesapp.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id) {
+        public ActionResult Edit(int? id) {
         var data=_context.Notes.Where(x=>x.NoteId == id).FirstOrDefault();
             return View(data);
         }
@@ -49,7 +49,7 @@ namespace Notesapp.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int? id)
         {
             var data = _context.Notes.Where(x => x.NoteId == id).FirstOrDefault();
             return View(data);
