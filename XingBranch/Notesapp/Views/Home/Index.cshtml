@@ -28,7 +28,7 @@
         </form>
     </div>}
 
-
+<br>
 <p>
     @Html.ActionLink("Create New Note", "Create")
 </p>
@@ -53,7 +53,10 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @{
+                    var contentDisplay = item.Content.Length > 45 ? item.Content.Substring(0, 45) + "..." : item.Content;
+                }
+                @Html.Raw(contentDisplay)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
