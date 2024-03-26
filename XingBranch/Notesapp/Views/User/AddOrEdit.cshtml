@@ -79,6 +79,11 @@
             display: block;
         }
 
+        .login-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
         input[type="password"] {
             -webkit-text-security: disc;
             text-security: disc;
@@ -115,6 +120,8 @@
             <div class="label-message">@ViewBag.SuccessMessage</div>
             <div class="label-message">@ViewBag.DuplicateMessage</div>
         }
+
+        <a href="@Url.Action("Index","Login")" class="login-link">Login</a>
     </div>
 </body>
 </html>

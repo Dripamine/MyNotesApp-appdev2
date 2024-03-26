@@ -6,11 +6,37 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Add CSS for sticky navbar */
+        .navbar.fixed-top {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Ensure navbar is above other content */
+        }
+
+        /* Add CSS for footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #595959;
+            padding: 18px 0;
+            color: white;
+            text-align: center;
+            z-index: 1000; /* Ensure footer is above other content */
+        }
+
+        /* Add CSS to push content above footer */
+        .body-content {
+            padding-bottom: 60px; /* Adjust to match footer height */
+            /* Add more padding if needed */
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark " style="background-color: #007bff;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark fixed-top" style="background-color: #595959;">
         <div class="container">
-            @Html.ActionLink("Notes App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("My Notes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -18,37 +44,36 @@
             <div class=" collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-
                 </ul>
                 @{
-                    if (Session["userId"] != null) { <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
- <a class="nav-link" style="color:white" >User Name: @Session["username"].ToString()</a>
-                </li>
-                <li class="nav-item">
-
-                    <a class="nav-link" href="@Url.Action("LogOut", "Login")">LogOut</a>
-                </li>
-   
-    
-</ul>} }
-
-                    </div>
+                    if (Session["userId"] != null)
+                    {
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:white">Username: @Session["username"].ToString()</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("LogOut", "Login")">Logout</a>
+                            </li>
+                        </ul>
+                    }
+                }
+            </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer class="text-light fixed-bottom" style="background-color: #007bff;">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <p>&copy; @DateTime.Now.Year - My Notes Application</p>
-                    </div>
+    </div>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p style="margin-bottom: 0;">&copy; @DateTime.Now.Year - My Notes Application</p>
                 </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
