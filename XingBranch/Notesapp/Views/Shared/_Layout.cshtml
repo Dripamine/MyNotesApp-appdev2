@@ -7,14 +7,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
-        /* Add CSS for sticky navbar */
         .navbar.fixed-top {
             position: sticky;
             top: 0;
-            z-index: 1000; /* Ensure navbar is above other content */
+            z-index: 1000;
         }
 
-        /* Add CSS for footer */
         footer {
             position: fixed;
             bottom: 0;
@@ -23,13 +21,11 @@
             padding: 18px 0;
             color: white;
             text-align: center;
-            z-index: 1000; /* Ensure footer is above other content */
+            z-index: 1000;
         }
 
-        /* Add CSS to push content above footer */
         .body-content {
-            padding-bottom: 60px; /* Adjust to match footer height */
-            /* Add more padding if needed */
+            padding-bottom: 60px;
         }
     </style>
 </head>
