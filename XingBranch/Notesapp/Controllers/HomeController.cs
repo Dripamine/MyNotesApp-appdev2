@@ -66,9 +66,12 @@ namespace Notesapp.Controllers
         [HttpPost]
         public ActionResult Search(string searchString)
         {
+            int userId = (int)Session["userId"];
             var listOfData = _context.Notes
-                                .Where(n => n.Title.Contains(searchString)) 
-                                .ToList();
+                                    .Where(n => n.UserId == userId &&
+                                                n.Title.Contains(searchString))
+                                    .ToList();
+            ViewBag.SearchString = searchString;
             return View(listOfData);
         }
     }
