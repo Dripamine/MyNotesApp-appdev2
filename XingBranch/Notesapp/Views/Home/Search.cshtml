@@ -48,8 +48,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                             <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Content)<br />
-                                @Html.DisplayFor(modelItem => item.Date)
+                                @Html.DisplayFor(modelItem => item.Content)
                             </p>
                             <a href="@Url.Action("Detail", "Home", new { id = item.NoteId })" class="btn btn-primary" style="background-color: #699DE0; border: none;">Details</a>
                             <a href="@Url.Action("Edit", "Home", new { id = item.NoteId })" class="btn btn-secondary" style="background-color: #41CABE; border: none; ">Edit</a>

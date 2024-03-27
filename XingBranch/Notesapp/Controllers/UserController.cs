@@ -7,21 +7,21 @@ namespace Notesapp.Controllers
     public class UserController : Controller
     {
         [HttpGet]
-        public ActionResult AddOrEdit(int id = 0)
+        public ActionResult Register(int id = 0)
         {
             User userModel = new User();
             return View(userModel);
         }
 
         [HttpPost]
-        public ActionResult AddOrEdit(User userModel)
+        public ActionResult Register(User userModel)
         {
             if (ModelState.IsValid)
             {
                 if (userModel.Password != userModel.ConfirmPassword)
                 {
                     ModelState.AddModelError("ConfirmPassword", "The password and confirmation password do not match.");
-                    return View("AddOrEdit", userModel);
+                    return View("Register", userModel);
                 }
 
                 using (appdev2Entities dbcontext = new appdev2Entities())
@@ -29,7 +29,7 @@ namespace Notesapp.Controllers
                     if (dbcontext.Users.Any(x => x.Username == userModel.Username))
                     {
                         ViewBag.DuplicateMessage = "Username already exists.";
-                        return View("AddOrEdit", userModel);
+                        return View("Register", userModel);
                     }
                     userModel.Password = BCrypt.Net.BCrypt.HashPassword(userModel.Password);
                     dbcontext.Users.Add(userModel);
@@ -39,7 +39,7 @@ namespace Notesapp.Controllers
                 ViewBag.SuccessMessage = "Registration Successful";
                 return RedirectToAction("Index", "Login");
             }
-            return View("AddOrEdit", userModel);
+            return View("Register", userModel);
         }
     }
 }
