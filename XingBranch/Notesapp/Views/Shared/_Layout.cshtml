@@ -1,0 +1,85 @@
+﻿@{
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Notes - @ViewBag.Title</title>
+        <link rel="icon" href="~/notes-icon3.jpg" type="image/jpeg" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <style>
+            .navbar.fixed-top {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background-color: #595959;
+                padding: 18px 0;
+                color: white;
+                text-align: center;
+                z-index: 1000;
+            }
+
+            .body-content {
+                padding-bottom: 60px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark fixed-top" style="background-color: #595959;">
+            <div class="container">
+                @Html.ActionLink("My Notes", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class=" collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                    @{
+                        if (Session["userId"] != null)
+                        {
+                            <ul class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" style="color:white">Username: @Session["username"].ToString()</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("LogOut", "Login")">Logout</a>
+                                </li>
+                            </ul>
+                        }
+                    }
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <p style="margin-bottom: 0;">&copy; @DateTime.Now.Year - My Notes Application</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

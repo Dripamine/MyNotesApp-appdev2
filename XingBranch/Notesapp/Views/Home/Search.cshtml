@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Notesapp.Note>
+
+@{
+    var searchedKeyword = ViewBag.SearchString as string;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search Results</title>
+    <style>
+        .search-title {
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="search-title">Search Results</h2>
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+        <div class="input-group mb-3">
+            <input class="form-control"
+                   type="search"
+                   name="searchString"
+                   placeholder="Search for notes?"
+                   aria-label="Search"
+                   value="@searchedKeyword" /> <!-- Set the value to the searched keyword -->
+            <div class="input-group-append" style="margin-left: 7px;">
+                <button class="btn btn-primary" type="submit" style="background-color: #595959; border: none;">
+                    Search
+                </button>
+            </div>
+        </div>
+    }
+<div class="row">
+    @if (Model.Count() == 0)
+    {
+        <p>No records found.</p>
+    }
+   
+        @foreach (var item in Model)
+        {
+            if (item.UserId == (int)Session["userId"])
+            {
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                            <p class="card-text">
+                                @Html.DisplayFor(modelItem => item.Content)
+                            </p>
+                            <a href="@Url.Action("Detail", "Home", new { id = item.NoteId })" class="btn btn-primary" style="background-color: #699DE0; border: none;">Details</a>
+                            <a href="@Url.Action("Edit", "Home", new { id = item.NoteId })" class="btn btn-secondary" style="background-color: #41CABE; border: none; ">Edit</a>
+                            <a href="@Url.Action("Delete", "Home", new { id = item.NoteId })" class="btn btn-danger" style="background-color: #FF8C82; border: none; " onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        
+    }
+</div>
+
+</body>
+<br>
+<div>
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary" })
+</div>
+</html>

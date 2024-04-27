@@ -1,0 +1,96 @@
+﻿@model Notesapp.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="~/notes-icon3.jpg" type="image/jpeg" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        #login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            margin-top: 5px;
+            background-color: #007bff;
+            font-size: 17px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+        .error-message {
+            color: red;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .register-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-container">
+        <h2>My Notes App</h2>
+        @using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            @Html.LabelFor(model => model.Username)
+            @Html.EditorFor(model => model.Username)
+            <div class="error-message">@Html.ValidationMessageFor(model => model.Username)</div>
+
+            @Html.LabelFor(model => model.Password)
+            @Html.PasswordFor(model => model.Password)
+            <div class="error-message">@Html.ValidationMessageFor(model => model.Password)</div>
+
+            <div class="error-message">@Html.DisplayFor(model => model.errormessage)</div>
+
+            <input type="submit" value="Login" />
+        }
+
+        <a href="@Url.Action("Register","User")" class="register-link">Register</a>
+    </div>
+</body>
+</html>

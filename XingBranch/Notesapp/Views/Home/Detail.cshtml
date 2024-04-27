@@ -1,0 +1,74 @@
+﻿@model Notesapp.Note
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<style>
+    .detail-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-title {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .detail-item {
+        margin-bottom: 10px;
+    }
+
+    .button-container {
+        text-align: center;
+    }
+
+    .dl-horizontal dd {
+        word-wrap: break-word;
+    }
+</style>
+
+<h2 class="detail-title">Detail</h2>
+
+<div class="detail-container">
+    <div class="detail-item">
+        <h4>Note</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Content)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Content)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
+        <div class="col-md-offset-2 col-md-10" style="margin: 20px 0;">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.NoteId }, new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-secondary" })
+        </div>
+    </div>
+</div>
